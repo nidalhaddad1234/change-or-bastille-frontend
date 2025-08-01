@@ -14,10 +14,10 @@ export default observer(function Metals() {
   const [data, setData] = useState(null);
   const store = useContextStore();
 
-  const { isLoading } = store.metalStore;
+  const { isLoading } = store.metalsStore;
   useEffect(() => {
     const fetchData = async () => {
-      store.metalStore
+      store.metalsStore
         .loadmetals(false)
         .then((result) => {
           if (Array.isArray(result)) {

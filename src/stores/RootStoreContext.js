@@ -9,9 +9,9 @@ import NewsStoreClient from "./client/NewsStoreClient";
 import GlobalStore from "./client/GlobalStore";
 export const rootStore = {
   currenciesStore: new CurrenciesStore(),
-  metalStore: new MetalsStore(),
-  userStore: new UsersStore(),
-  newStore: new NewsStore(),
+  metalsStore: new MetalsStore(),
+  usersStore: new UsersStore(),
+  newsStore: new NewsStore(),
   currenciesStoreClient: new CurrenciesStoreClient(),
   metalsStoreClient: new MetalsStoreClient(),
   newsStoreClient: new NewsStoreClient(),

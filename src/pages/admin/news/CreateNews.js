@@ -41,7 +41,7 @@ export default function CreateNews() {
           news.description,
           news.isVisible
         );
-        store.newStore.addNews(result.data);
+        store.newsStore.addNews(result.data);
         navigate("/admin/news");
       } catch (err) {
         helpers.setStatus({ success: false });

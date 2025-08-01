@@ -30,7 +30,7 @@ export default observer(function Identity() {
   const { id } = useParams();
   useEffect(() => {
     async function getUser() {
-      var result = await store.userStore.getbyId(id);
+      var result = await store.usersStore.getbyId(id);
       if (result === undefined) navigate("/admin/users");
       setSelectedValue(result);
       setValue(result.identityStatus);
@@ -67,7 +67,7 @@ export default observer(function Identity() {
     try {
       var result = await agent.account.updateIdentityStatus(value, id);
       if (result.message === "Success") {
-        store.userStore.updateUser(result.data, id);
+        store.usersStore.updateUser(result.data, id);
         navigate("/admin/users");
       }
     } catch (er) {}

@@ -32,7 +32,7 @@ export default function UserOverview() {
   const { id } = useParams();
   useEffect(() => {
     async function getUser() {
-      var result = await store.userStore.getUserbyId(id);
+      var result = await store.usersStore.getUserbyId(id);
       if (result === undefined) navigate("/admin/users");
       setSelectedValue(result);
       setType(

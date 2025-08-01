@@ -11,7 +11,7 @@ import { observer } from "mobx-react";
 export default observer(function RateAlertInvestmentCoin() {
   const store = useContextStore();
   useEffect(() => {
-    const fetchData = async () => await store.metalStore.loadmetals(true);
+    const fetchData = async () => await store.metalsStore.loadmetals(true);
     fetchData().then((result) => {
       result = result.filter((x) => x.type !== "Piece De Collection");
       setData(result);

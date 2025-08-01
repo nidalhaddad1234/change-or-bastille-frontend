@@ -16,10 +16,10 @@ export default observer(function AdminNews() {
     const [data, setData] = useState(null);
     const store = useContextStore();
 
-    const { isLoading } = store.newStore;
+    const { isLoading } = store.newsStore;
     useEffect(() => {
         const fetchData = async () => {
-            store.newStore
+            store.newsStore
                 .loadNews(false)
                 .then((result) => {
                     if (Array.isArray(result)) {

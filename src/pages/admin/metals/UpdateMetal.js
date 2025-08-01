@@ -34,7 +34,7 @@ export default function UpdateMetal() {
 
   useEffect(() => {
     async function getMetal() {
-      var result = await store.metalStore.getbyId(id);
+      var result = await store.metalsStore.getbyId(id);
       if (result === undefined) navigate("/admin/metals");
       formik.setValues({
         metalName: result.metalName,
@@ -267,7 +267,7 @@ export default function UpdateMetal() {
           metal.title,
           metal.description
         );
-        store.metalStore.updateMetal(metal, id);
+        store.metalsStore.updateMetal(metal, id);
         await agent.reserves.newPriceUpdate(id, metal.netSellPrice);
         navigate("/admin/metals");
       } catch (err) {
@@ -280,7 +280,7 @@ export default function UpdateMetal() {
   const Delete = async () => {
     try {
       await agent.metals.Delete(id);
-      store.metalStore.removeMetal(id);
+      store.metalsStore.removeMetal(id);
       navigate("/admin/metals");
     } catch (err) { }
   };

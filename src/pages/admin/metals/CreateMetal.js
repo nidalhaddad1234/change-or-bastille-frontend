@@ -225,7 +225,7 @@ export default function CreateMetal() {
           metal.description
         );
 
-        store.metalStore.addMetal(result.data);
+        store.metalsStore.addMetal(result.data);
         navigate("/admin/metals");
       } catch (err) {
         helpers.setStatus({ success: false });

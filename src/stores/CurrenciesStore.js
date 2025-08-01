@@ -3,8 +3,11 @@ import agent from "../agent";
 
 export default class CurrenciesStore {
   currencies = [];
+  featuredCurrencies = [];
+  searchResults = [];
   isLoading = true;
   isLoaded = false;
+  searchLoading = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -56,5 +59,71 @@ export default class CurrenciesStore {
       this.isLoading = false;
       return this.currencies;
     }
+  }
+
+  async loadFeaturedCurrencies() {
+    try {
+      this.isLoading = true;
+      const response = await agent.currencies.listIsFeaturedCurrencies();
+      const data = response.data;
+
+      runInAction(() => {
+        this.featuredCurrencies = data || [];
+      });
+    } catch (error) {
+      console.error('Error loading featured currencies:', error);
+      runInAction(() => {
+        this.featuredCurrencies = [];
+      });
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  searchCurrencies(query) {
+    if (!query || query.trim().length < 2) {
+      runInAction(() => {
+        this.searchResults = [];
+        this.searchLoading = false;
+      });
+      return [];
+    }
+
+    try {
+      this.searchLoading = true;
+      const searchTerm = query.trim().toLowerCase();
+      
+      // Filter currencies by name or ISO code
+      const filteredCurrencies = this.currencies.filter(currency => 
+        currency.currencyName?.toLowerCase().includes(searchTerm) ||
+        currency.moneyName?.toLowerCase().includes(searchTerm) ||
+        currency.iso?.toLowerCase().includes(searchTerm)
+      );
+
+      runInAction(() => {
+        this.searchResults = filteredCurrencies.map(currency => ({
+          ...currency,
+          type: 'currency',
+          displayName: currency.currencyName
+        }));
+        this.searchLoading = false;
+      });
+      
+      return this.searchResults;
+    } catch (error) {
+      console.error('Error searching currencies:', error);
+      runInAction(() => {
+        this.searchResults = [];
+        this.searchLoading = false;
+      });
+      return [];
+    }
+  }
+
+  clearSearchResults() {
+    runInAction(() => {
+      this.searchResults = [];
+      this.searchLoading = false;
+    });
   }
 }

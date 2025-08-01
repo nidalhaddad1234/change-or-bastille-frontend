@@ -86,23 +86,23 @@ const requests = {
 };
 
 const account = {
-  list: () => requests.get("/users/getAll"),
-  getById: (id) => requests.get("/users/getById/" + id),
-  getUserIdentity: (id) => requests.get("/users/getUserIdentity/" + id),
+  list: () => requests.get("/api/users/getAll"),
+  getById: (id) => requests.get("/api/users/getById/" + id),
+  getUserIdentity: (id) => requests.get("/api/users/getUserIdentity/" + id),
   resetPassword: (currentPassword, newPassword, email) =>
-    requests.post("/users/resetPassword", {
+    requests.post("/api/users/resetPassword", {
       currentPassword: currentPassword,
       newPassword: newPassword,
       email: email,
     }),
   forgotPasswordEmail: (email) =>
-    requests.post("users/forgotPasswordEmail", { email: email }),
+    requests.post("/api/users/forgotPasswordEmail", { email: email }),
   forgotPassword: (token, newPassword) =>
-    requests.post("/users/forgotPassword/" + token, {
+    requests.post("/api/users/forgotPassword/" + token, {
       newPassword: newPassword,
     }),
   logIn: (email, pass) =>
-    requests.post("/users/login", { email: email, password: pass }),
+    requests.post("/api/users/login", { email: email, password: pass }),
   Register: (
     town,
     password,
@@ -119,7 +119,7 @@ const account = {
     civilite,
     token,
   ) => {
-    return requests.post("/users/register", {
+    return requests.post("/api/users/register", {
       username: email,
       password: password,
       firstName: firstName,
@@ -151,7 +151,7 @@ const account = {
     civilite,
     id,
   ) => {
-    return requests.post("/users/edit/" + id, {
+    return requests.post("/api/users/edit/" + id, {
       firstName: firstName,
       lastName: lastName,
       company: company,
@@ -167,7 +167,7 @@ const account = {
   },
 
   Submit: async (name, lastName, email, object, subject, token) => {
-    return requests.post("/users/contact", {
+    return requests.post("/api/users/contact", {
       name: name,
       lastName: lastName,
       email: email,
@@ -183,10 +183,10 @@ const account = {
     });
     bodyFormData.append("id", id);
 
-    return requests.post("/users/verifyIdentity/" + id, bodyFormData);
+    return requests.post("/api/users/verifyIdentity/" + id, bodyFormData);
   },
   updateIdentityStatus: async (status, id) => {
-    return requests.post("/users/updateIdentityStatus/" + id, {
+    return requests.post("/api/users/updateIdentityStatus/" + id, {
       status: status,
     });
   },
@@ -206,7 +206,7 @@ const currencies = {
     title,
     description,
   ) =>
-    requests.post("/currency/addCurrency", {
+    requests.post("/api/currency/addCurrency", {
       moneyName: moneyName,
       currencyName: currencyName,
       iso: iso,
@@ -235,7 +235,7 @@ const currencies = {
     title,
     description,
   ) =>
-    requests.put("/currency/editCurrency", {
+    requests.put("/api/currency/editCurrency", {
       id: id,
       moneyName: moneyName,
       currencyName: currencyName,
@@ -250,11 +250,11 @@ const currencies = {
       title,
       description,
     }),
-  Delete: (id) => requests.del("/currency/deleteCurrency/" + id),
-  list: (isVisible) => requests.get("/currency/getCurrencies/" + isVisible),
-  getCurrencyById: (id) => requests.get("/currency/getCurrencyById/" + id),
+  Delete: (id) => requests.del("/api/currency/deleteCurrency/" + id),
+  list: (isVisible) => requests.get("/api/currency/getCurrencies/" + isVisible),
+  getCurrencyById: (id) => requests.get("/api/currency/getCurrencyById/" + id),
   listIsFeaturedCurrencies: () =>
-    requests.get("/currency/getIsFeaturedCurrencies"),
+    requests.get("/api/currency/getIsFeaturedCurrencies"),
   upadteBillDetails: (id, bill, image, image2) => {
     var bodyFormData = new FormData();
     bodyFormData.append("files", image);
@@ -265,7 +265,7 @@ const currencies = {
     bodyFormData.append("photo", bill.photo);
     bodyFormData.append("photo2", bill.photo2);
 
-    return requests.post("/currency/upadteBillDetails", bodyFormData);
+    return requests.post("/api/currency/upadteBillDetails", bodyFormData);
   },
 };
 const metals = {
@@ -288,7 +288,7 @@ const metals = {
     title,
     description,
   ) => {
-    return requests.post("/metal/addMetal", {
+    return requests.post("/api/metal/addMetal", {
       metalName: metalName,
       weight: weight,
       diameter: diameter,
@@ -328,7 +328,7 @@ const metals = {
     title,
     description,
   ) =>
-    requests.put("/metal/editMetal", {
+    requests.put("/api/metal/editMetal", {
       metalName: metalName,
       weight: weight,
       diameter: diameter,
@@ -348,55 +348,55 @@ const metals = {
       title,
       description,
     }),
-  Delete: (id) => requests.del("/metal/deleteMetal/" + id),
-  list: (isVisible) => requests.get("/metal/getMetal/" + isVisible),
-  Search: (text) => requests.get("/metal/search/" + text),
-  listByType: (type) => requests.get("/metal/getMetalsByType/" + type),
-  listFeaturedMetals: () => requests.get("/metal/getFeaturedMetals"),
-  getMetalById: (id) => requests.get("/metal/getMetalById/" + id),
+  Delete: (id) => requests.del("/api/metal/deleteMetal/" + id),
+  list: (isVisible) => requests.get("/api/metal/getMetal/" + isVisible),
+  Search: (text) => requests.get("/api/metal/search/" + text),
+  listByType: (type) => requests.get("/api/metal/getMetalsByType/" + type),
+  listFeaturedMetals: () => requests.get("/api/metal/getFeaturedMetals"),
+  getMetalById: (id) => requests.get("/api/metal/getMetalById/" + id),
   uploadMetalImage: (image, id) => {
     var bodyFormData = new FormData();
     bodyFormData.append("file", image);
     bodyFormData.append("id", id);
-    requests.post("/metal/uploadImage", bodyFormData);
+    requests.post("/api/metal/uploadImage", bodyFormData);
   },
 };
 const news = {
   Create: async (title, description, isVisible) => {
-    return requests.post("/news/addNews", {
+    return requests.post("/api/news/addNews", {
       title: title,
       description: description,
       isVisible: isVisible,
     });
   },
-  getAllNewsLetterMembers: () => requests.get("/news/getAllNewsLetterMembers"),
+  getAllNewsLetterMembers: () => requests.get("/api/news/getAllNewsLetterMembers"),
   unsubscribeFromNewsLetter: (token) =>
-    requests.post("/news/unsubscribeFromNewsletter", {
+    requests.post("/api/news/unsubscribeFromNewsletter", {
       token: token,
     }),
   Edit: (title, description, isVisible, id) =>
-    requests.put("/news/editNews", {
+    requests.put("/api/news/editNews", {
       title: title,
       description: description,
       isVisible: isVisible,
       newsId: id,
     }),
-  Delete: (newsId) => requests.del("/news/deleteNews/" + newsId),
-  list: (isVisible) => requests.get("/news/getNews/" + isVisible),
-  getById: (id) => requests.get("/news/getNewsById/" + id),
+  Delete: (newsId) => requests.del("/api/news/deleteNews/" + newsId),
+  list: (isVisible) => requests.get("/api/news/getNews/" + isVisible),
+  getById: (id) => requests.get("/api/news/getNewsById/" + id),
   addToNewsLetter: (email) =>
-    requests.post("/news/subscribe", { email: email }),
-  sendNewsLetter: () => requests.post("/news/sendNewsletterEmail"),
+    requests.post("/api/news/subscribe", { email: email }),
+  sendNewsLetter: () => requests.post("/api/news/sendNewsletterEmail"),
   uploadNewsImage: (image, id) => {
     var bodyFormData = new FormData();
     bodyFormData.append("file", image);
     bodyFormData.append("id", id);
-    requests.post("/news/uploadImage", bodyFormData);
+    requests.post("/api/news/uploadImage", bodyFormData);
   },
 };
 const configuration = {
   Edit: (offers, carrates22, carrates18, carrates14, id) =>
-    requests.put("/configuration/editConfiguration/" + id, {
+    requests.put("/api/configuration/editConfiguration/" + id, {
       offers: offers,
       carrates22: carrates22,
       carrates18: carrates18,
@@ -404,18 +404,18 @@ const configuration = {
       newsId: id,
     }),
   add: (offers, carrates22, carrates18, carrates14) =>
-    requests.post("/configuration/addConfiguration", {
+    requests.post("/api/configuration/addConfiguration", {
       offers: offers,
       carrates22: carrates22,
       carrates18: carrates18,
       carrates14: carrates14,
     }),
-  list: () => requests.get("/configuration/getLastConfiguration"),
+  list: () => requests.get("/api/configuration/getLastConfiguration"),
 };
 
 const seo = {
   upSert: (main, rachatBijoux, bills, investment, collection, ingot) =>
-    requests.post("/seo/upsert", {
+    requests.post("/api/seo/upsert", {
       main,
       rachatBijoux,
       bills,
@@ -423,27 +423,27 @@ const seo = {
       collection,
       ingot,
     }),
-  getAllSeo: () => requests.get("/seo/getSeoData"),
-  getByPage: (name) => requests.get("/seo/getSeoPage/" + name),
+  getAllSeo: () => requests.get("/api/seo/getSeoData"),
+  getByPage: (name) => requests.get("/api/seo/getSeoPage/" + name),
 };
 const reserves = {
   add: (email, desiredPrice, type, typeId) =>
-    requests.post("/reserve/addReserve", {
+    requests.post("/api/reserve/addReserve", {
       email: email,
       desiredPrice: desiredPrice,
       type: type,
       typeId: typeId,
     }),
   newPriceUpdate: (typeId, newPrice) =>
-    requests.post("/reserve/newPriceUpdate", {
+    requests.post("/api/reserve/newPriceUpdate", {
       typeId: typeId,
       newPrice: newPrice,
     }),
-  list: () => requests.get("/reserve/getReserves"),
+  list: () => requests.get("/api/reserve/getReserves"),
 };
 const orders = {
   add: (Items, paymentType, mac, amount, orderNumber, deliveryCost) =>
-    requests.post("/order/addOrder", {
+    requests.post("/api/order/addOrder", {
       Items: Items,
       paymentType: paymentType,
       mac: mac,
@@ -451,26 +451,26 @@ const orders = {
       orderNumber: orderNumber,
       deliveryCost: deliveryCost,
     }),
-  list: () => requests.get("/order/getAllOrders"),
-  getOrderById: (orderId) => requests.get("/order/getOrderById/" + orderId),
-  getOrderByUserId: () => requests.get("/order/getOrderByUserId"),
+  list: () => requests.get("/api/order/getAllOrders"),
+  getOrderById: (orderId) => requests.get("/api/order/getOrderById/" + orderId),
+  getOrderByUserId: () => requests.get("/api/order/getOrderByUserId"),
   updateOrderStatus: (orderStatus, id, trackingNumber) =>
-    requests.put("order/updateOrderStatus", {
+    requests.put("/api/order/updateOrderStatus", {
       orderId: id,
       status: orderStatus,
       trackingNumber: trackingNumber,
     }),
   updatePaymentStatus: (orderStatus, id) =>
-    requests.put("order/updatePaymentStatus", {
+    requests.put("/api/order/updatePaymentStatus", {
       orderId: id,
       status: orderStatus,
     }),
-  deleteOrder: (id) => requests.del(`order/deleteOrder/${id}`),
+  deleteOrder: (id) => requests.del(`/api/order/deleteOrder/${id}`),
   createOrderFormData: (amountToPay) =>
-    requests.post("order/createOrderFormData", { amountToPay: amountToPay }),
-  callback: (test) => requests.post("order/callBackOrder", { test: test }),
+    requests.post("/api/order/createOrderFormData", { amountToPay: amountToPay }),
+  callback: (test) => requests.post("/api/order/callBackOrder", { test: test }),
   sendManualOrderEmail: (orderId) =>
-    requests.post("order/sendManualOrderEmail", { orderId: orderId }),
+    requests.post("/api/order/sendManualOrderEmail", { orderId: orderId }),
 };
 const agent = {
   account,

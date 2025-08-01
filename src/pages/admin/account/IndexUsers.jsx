@@ -18,7 +18,7 @@ export default observer(function IndexUsers() {
   const { isLoading } = store.currenciesStore;
   useEffect(() => {
     const fetchData = async () => {
-      store.userStore
+      store.usersStore
         .loadUsers(false)
         .then((result) => {
           if (Array.isArray(result)) {

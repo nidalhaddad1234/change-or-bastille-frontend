@@ -11,7 +11,7 @@ import { getFileName } from "../../../helpers";
 export default observer(function WhyInvestInGold() {
   const store = useContextStore();
   useEffect(() => {
-    const fetchData = async () => await store.metalStore.loadmetals(true);
+    const fetchData = async () => await store.metalsStore.loadmetals(true);
     fetchData().then((result) => {
       setFeatured(result);
     });

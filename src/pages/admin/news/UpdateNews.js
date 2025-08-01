@@ -28,7 +28,7 @@ export default observer(function UpdateNews() {
 
   useEffect(() => {
     async function getNews() {
-      var result = await store.newStore.getbyId(id);
+      var result = await store.newsStore.getbyId(id);
       if (result === undefined) navigate("/admin/news");
       setData(result);
     }
@@ -57,7 +57,7 @@ export default observer(function UpdateNews() {
           news.isVisible,
           id
         );
-        store.newStore.updateNews(result.data, id);
+        store.newsStore.updateNews(result.data, id);
         navigate("/admin/news");
       } catch (err) {
         helpers.setStatus({ success: false });
@@ -69,7 +69,7 @@ export default observer(function UpdateNews() {
   const Delete = async () => {
     try {
       await agent.news.Delete(id);
-      store.newStore.removeNews(id);
+      store.newsStore.removeNews(id);
       navigate("/admin/news");
     } catch (err) {}
   };
